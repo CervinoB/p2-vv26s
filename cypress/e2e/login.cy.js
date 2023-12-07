@@ -1,22 +1,28 @@
-describe("template spec", () => {
+describe("Template spec", () => {
   it("Login e Navegação", () => {
 
-    // visita o site
+    // Visita o site
     cy.visit("https://www.saucedemo.com/");
 
-    // Login
+    // Verifica se o logotipo de login é visível
     cy.get('[class="login_logo"]').should("be.visible");
+
+    // Preenche os campos de usuário e senha e faz login
     cy.get('[data-test="username"]').type("standard_user");
     cy.get('[data-test="password"]').type("secret_sauce");
     cy.get('[data-test="login-button"]').click();
 
-    // Navegação
+    // Verifica se o título da página após o login é visível
     cy.get('[class="title"]').should("be.visible");
     cy.get(".app_logo").contains("Swag Labs").should("be.visible");
 
-    cy.get('[class="shopping_cart_link"]').click(); // navega para o carrinho
-    cy.get("#continue-shopping").click(); // volta para a página inicial
+    // Clica no carrinho para navegar para ele
+    cy.get('[class="shopping_cart_link"]').click();
 
+    // Clica para voltar para a página inicial
+    cy.get("#continue-shopping").click();
 
+    // Captura uma screenshot da página atual
+    cy.screenshot("pagina-inicial");
   });
 });
